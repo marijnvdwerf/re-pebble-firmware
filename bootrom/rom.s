@@ -2,21 +2,21 @@
     @ 0x8000000
 _8000000:
     .4byte 0x20012048
-    .4byte 0x8002C8D
-    .4byte 0x8002FED
-    .4byte 0x8002FED
-    .4byte 0x8002FED
-    .4byte 0x8002FED
-    .4byte 0x8002FED
+    .4byte _entry + 1
+    .4byte fault_entry + 1
+    .4byte fault_entry + 1
+    .4byte fault_entry + 1
+    .4byte fault_entry + 1
+    .4byte fault_entry + 1
     .4byte 0x0
     .4byte 0x0
     .4byte 0x0
     .4byte 0x0
-    .4byte 0x8002FED
-    .4byte 0x8002FED
+    .4byte fault_entry + 1
+    .4byte fault_entry + 1
     .4byte 0x0
-    .4byte 0x8002FED
-    .4byte 0x8002FED
+    .4byte fault_entry + 1
+    .4byte fault_entry + 1
     .4byte 0x139C
     .4byte 0x1
 
@@ -948,7 +948,7 @@ _8000608:
 
     @ 0x800060C
 _800060C:
-    .4byte 0x8003FC9
+    .4byte aNull
 
     @ 0x8000610
 loc_8000610:
@@ -4923,7 +4923,7 @@ s:
 
     @ 0x8001F74
 _8001F74:
-    .4byte 0x80039B7
+    .4byte aIsOutsideSyste
 
     @ 0x8001F78
 _8001F78:
@@ -5309,7 +5309,7 @@ _8002260:
 
     @ 0x8002264
 _8002264:
-    .4byte 0x80039F5
+    .4byte _80039F5
 
     @ 0x8002268
 _8002268:
@@ -5317,7 +5317,7 @@ _8002268:
 
     @ 0x800226C
 _800226C:
-    .4byte 0x8003A31
+    .4byte aInvalidFirmwar
 
     @ 0x8002270
 _8002270:
@@ -5325,7 +5325,7 @@ _8002270:
 
     @ 0x8002274
 _8002274:
-    .4byte 0x8003A67
+    .4byte aOldWorldFirm_0
 
     @ 0x8002278
 _8002278:
@@ -5345,7 +5345,7 @@ _8002284:
 
     @ 0x8002288
 _8002288:
-    .4byte 0x8003A97
+    .4byte aWrite_new_firm
 
     @ 0x800228C
 _800228C:
@@ -5361,7 +5361,7 @@ _8002294:
 
     @ 0x8002298
 _8002298:
-    .4byte 0x8003AC3
+    .4byte aWeReDead
 
     @ 0x800229C
 _800229C:
@@ -5373,7 +5373,7 @@ _80022A0:
 
     @ 0x80022A4
 _80022A4:
-    .4byte 0x8003AE3
+    .4byte _8003AE3
 
     @ 0x80022A8
 _80022A8:
@@ -5389,7 +5389,7 @@ _80022B0:
 
     @ 0x80022B4
 _80022B4:
-    .4byte 0x8003B46
+    .4byte aOurInternalFla
 
     @ 0x80022B8
     .thumb_func
@@ -7137,7 +7137,7 @@ loc_8002FDC:
 
     @ 0x8002FE4
 _8002FE4:
-    .4byte 0x8003FA7
+    .4byte a0123456789ab_0
 
     @ 0x8002FE8
 _8002FE8:
@@ -7565,10 +7565,7 @@ _8003280:
 
     @ 0x80032A0
 buttons:
-    .byte 0x93
-    .byte 0x3F
-    .byte 0x0
-    .byte 0x8
+    .4byte aBack
     .byte 0x0
     .byte 0x8
     .byte 0x2
@@ -7577,10 +7574,7 @@ buttons:
     .byte 0x0
     .byte 0x0
     .byte 0x0
-    .byte 0x98
-    .byte 0x3F
-    .byte 0x0
-    .byte 0x8
+    .4byte aUp
     .byte 0x0
     .byte 0x0
     .byte 0x2
@@ -7589,10 +7583,7 @@ buttons:
     .byte 0x0
     .byte 0x0
     .byte 0x0
-    .byte 0x9B
-    .byte 0x3F
-    .byte 0x0
-    .byte 0x8
+    .4byte aSelect
     .byte 0x0
     .byte 0x8
     .byte 0x2
@@ -7601,10 +7592,7 @@ buttons:
     .byte 0x0
     .byte 0x0
     .byte 0x0
-    .byte 0xA2
-    .byte 0x3F
-    .byte 0x0
-    .byte 0x8
+    .4byte aDown
     .byte 0x0
     .byte 0x0
     .byte 0x2
