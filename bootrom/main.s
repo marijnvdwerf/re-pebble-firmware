@@ -1,0 +1,36 @@
+.syntax unified
+.cpu cortex-m3
+.text
+.thumb
+
+.include "rom.s"
+
+.equ TIM3_BASE,     0x40000400
+.equ RTC_BASE,      0x40002800
+.equ _40003000,     0x40003000
+.equ _40003004,     0x40003004
+.equ _40003008,     0x40003008
+.equ SPI2_BASE,     0x40003800
+.equ SPI3_BASE,     0x40003C00
+.equ USART2_BASE,   0x40004400
+.equ USART3_BASE,   0x40004800
+.equ _40007000,     0x40007000
+
+.equ SPI1_BASE,     0x40013000
+
+.equ GPIOA_BASE,    0x40020000
+.equ GPIOB_BASE,    0x40020400
+.equ GPIOC_BASE,    0x40020800
+.equ _40023000,     0x40023000
+.equ _40023008,     0x40023008
+.equ RCC_BASE,      0x40023800
+.equ FLASH_BASE,    0x40023C00
+
+.equ _20010048,     0x20010048
+.equ _20000000,     0x20000000
+.equ _2000000C,     0x2000000C
+.equ _20000044,     0x20000044
+.equ _20000020,     0x20000020
+.equ _20010044,     0x20010044
+.equ gpio_cfg,      0x20000004
+ 
