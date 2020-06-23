@@ -1,10 +1,15 @@
 include_directories(bootrom)
 
-set(mySrcs main.s)
+set(mySrcs
+        startup.s
+        string.c
+        main.s
+        )
 
 set(TARGET_NAME "bootrom")
 
 set(CMAKE_ASM_FLAGS "-I${CMAKE_CURRENT_SOURCE_DIR} -mthumb -mcpu=cortex-m3  ")
+set(CMAKE_C_FLAGS "-I${CMAKE_CURRENT_SOURCE_DIR} -std=c99 -mcpu=cortex-m3 -mthumb -ffunction-sections -fdata-sections -g -fPIE -Os")
 
 set(LINKER_SCRIPT "${CMAKE_CURRENT_SOURCE_DIR}/bootrom.ld")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -T ${LINKER_SCRIPT} -nostdlib -Wl,--Map=output.map")

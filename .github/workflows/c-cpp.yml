@@ -24,7 +24,7 @@ jobs:
       run: mkdir ${{github.workspace}}/build
     - name: Configure CMake
       working-directory: ${{github.workspace}}/build
-      run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_C_COMPILER=$GITHUB_WORKSPACE/pebble-sdk-4.5-linux64/arm-cs-tools/bin/arm-none-eabi-gcc
+      run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_C_COMPILER=$GITHUB_WORKSPACE/pebble-sdk-4.5-linux64/arm-cs-tools/bin/arm-none-eabi-gcc -DCMAKE_SYSTEM_NAME=Generic -DCMAKE_SYSTEM_PROCESSOR=arm
     - name: Build
       working-directory: ${{github.workspace}}/build
       run: make
