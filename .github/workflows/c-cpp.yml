@@ -28,3 +28,6 @@ jobs:
     - name: Build
       working-directory: ${{github.workspace}}/build
       run: make
+    - name: Validate built bootloader
+      run: echo "836b23d0c03775bfb137c41784e9e802  bootrom/bootrom.bin" | md5sum -c -
+      working-directory: ${{github.workspace}}/build
