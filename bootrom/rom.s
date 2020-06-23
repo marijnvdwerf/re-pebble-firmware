@@ -1,22 +1,4 @@
     .section .text.unaligned
-    @ 0x8000048
-    .thumb_func
-memcpy:
-    push {r4, lr}
-    movs r3, #0
-
-    @ 0x800004C
-loc_800004C:
-    cmp r3, r2
-    beq.n loc_8000058
-    ldrb r4, [r1, r3]
-    strb r4, [r0, r3]
-    adds r3, #1
-    b.n loc_800004C
-
-    @ 0x8000058
-loc_8000058:
-    pop {r4, pc}
 
     @ 0x800005A
     .thumb_func
