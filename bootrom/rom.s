@@ -1,25 +1,4 @@
-
-    @ 0x8000000
-_8000000:
-    .4byte 0x20012048
-    .4byte _entry + 1
-    .4byte fault_entry + 1
-    .4byte fault_entry + 1
-    .4byte fault_entry + 1
-    .4byte fault_entry + 1
-    .4byte fault_entry + 1
-    .4byte 0x0
-    .4byte 0x0
-    .4byte 0x0
-    .4byte 0x0
-    .4byte fault_entry + 1
-    .4byte fault_entry + 1
-    .4byte 0x0
-    .4byte fault_entry + 1
-    .4byte fault_entry + 1
-    .4byte 0x139C
-    .4byte 0x1
-
+    .section .text.unaligned
     @ 0x8000048
     .thumb_func
 memcpy:
@@ -120,6 +99,8 @@ strcpy:
     mov r0, r5
     bl memcpy
     pop {r3, r4, r5, pc}
+
+.section .text.aligned
 
     @ 0x80000E0
     .thumb_func
@@ -6626,6 +6607,8 @@ bits:
     .4byte 0x75933
 
     @ 0x8002C8C
+    .global _entry
+    .thumb_func
 _entry:
     ldr R0, _8002CAC
     ldr R2, _8002CB0
@@ -7144,6 +7127,7 @@ _8002FE8:
     .4byte a0123456789abcd
 
     @ 0x8002FEC
+    .global fault_entry
     .thumb_func
 fault_entry:
     tst.w lr, #4

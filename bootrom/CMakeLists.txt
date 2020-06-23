@@ -1,6 +1,9 @@
 include_directories(bootrom)
 
-set(mySrcs main.s)
+set(mySrcs
+        startup.s
+        main.s
+        )
 
 set(TARGET_NAME "bootrom")
 
