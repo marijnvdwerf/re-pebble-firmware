@@ -1,22 +1,5 @@
     .section .text.unaligned
 
-    @ 0x800005A
-    .thumb_func
-memset:
-    add r2, r0
-    mov r3, r0
-
-    @ 0x800005E
-loc_800005E:
-    cmp r3, r2
-    beq.n loc_8000068
-    strb r1, [r3], #1
-    b.n loc_800005E
-
-    @ 0x8000068
-loc_8000068:
-    bx lr
-
     @ 0x800006A
     .thumb_func
 sub_800006A:
