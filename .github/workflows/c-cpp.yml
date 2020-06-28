@@ -15,6 +15,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - run: apt-get update --yes
+    - run: apt-get install --no-install-recommends --yes cmake make
+
     - name: Create Build Environment
       run: mkdir $GITHUB_WORKSPACE/build
     - name: Configure CMake
