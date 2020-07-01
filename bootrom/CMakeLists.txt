@@ -3,7 +3,28 @@ include_directories(bootrom)
 set(mySrcs
         startup.s
         string.c
-        main.s
+        rom.s
+        00_crc.s
+        01_dbg.s
+        02_flash.s
+        03_iwdg.s
+        04_pwr.s
+        05_rcc.s
+        06_rtc.s
+        07_spi.s
+        08_usart.s
+        09_flash.s
+        10_gpio.s
+        11_rtc.s
+        12_spi.s
+        13_usart.s
+        14_ctrings.s
+        15_core_cm3.s
+        16_pebble.s
+        17_strings.s
+        18_pebble.s
+
+        data.c
         )
 
 set(TARGET_NAME "bootrom")

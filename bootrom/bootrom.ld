@@ -13,9 +13,31 @@ SECTIONS
     .text :
     {
         KEEP(*(.isr_vector)) /* Startup code */
-        *(.text)
         *(.text.*)
-        *(.rodata)
         *(.rodata*)
+
+	    . = ALIGN(4);
+   	 _etext = .;
+	    /* This is used by the startup in order to initialize the .data secion */
+   	 _sidata = _etext;
     } >FLASH
+
+    .data  : AT ( _sidata )
+        {
+    	    . = ALIGN(4);
+            /* This is used by the startup in order to initialize the .data secion */
+            _sdata = . ;
+
+            *(.data)
+            *(.data.*)
+
+    	    . = ALIGN(4);
+    	    /* This is used by the startup in order to initialize the .data secion */
+       	 _edata = . ;
+        } >RAM
+
+        /DISCARD/ :
+            {
+             *(*)
+             }
 }
