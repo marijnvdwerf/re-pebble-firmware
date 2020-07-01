@@ -4,7 +4,7 @@ set(mySrcs
         startup.s
         string.c
         rom.s
-        00_crc.s
+        00_crc.c
         01_dbg.s
         02_flash.s
         03_iwdg.s
