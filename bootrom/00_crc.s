@@ -4,9 +4,9 @@
 
 
     @ 0x8000810
-    .global sub_8000810
+    .global CRC_ResetDR
     .thumb_func
-sub_8000810:
+CRC_ResetDR:
     ldr r3, [pc, #4]
     movs r2, #1
     str r2, [r3, #8]
@@ -17,9 +17,9 @@ _8000818:
     .4byte 0x40023000
 
     @ 0x800081C
-    .global sub_800081C
+    .global CRC_CalcCRC
     .thumb_func
-sub_800081C:
+CRC_CalcCRC:
     ldr r3, [pc, #4]
     str r0, [r3]
     ldr r0, [r3]
@@ -30,9 +30,9 @@ _8000824:
     .4byte 0x40023000
 
     @ 0x8000828
-    .global sub_8000828
+    .global CRC_CalcBlockCRC
     .thumb_func
-sub_8000828:
+CRC_CalcBlockCRC:
     add.w r1, r0, r1, lsl #2
 
     @ 0x800082C
@@ -55,9 +55,9 @@ _8000840:
     .4byte 0x40023000
 
     @ 0x8000844
-    .global sub_8000844
+    .global CRC_GetCRC
     .thumb_func
-sub_8000844:
+CRC_GetCRC:
     ldr r3, [pc, #4]
     ldr r0, [r3]
     bx lr

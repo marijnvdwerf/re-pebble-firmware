@@ -972,7 +972,7 @@ loc_8002018:
     bl rcc_set_ahb1_enable
     add.w sb, sb, #0xc
     mov sl, sp
-    bl sub_8000810
+    bl CRC_ResetDR
     sub sp, #0x80
     mov r6, sp
     mov r5, r4
@@ -988,7 +988,7 @@ loc_800203A:
     bl sub_80031E2
     mov r0, r6
     movs r1, #0x20
-    bl sub_8000828
+    bl CRC_CalcBlockCRC
     subs r5, #0x80
     add.w r8, r8, #0x80
     b.n loc_800203A
@@ -1210,10 +1210,10 @@ loc_80021F4:
     movs r1, #1
     lsrs r6, r4, #2
     bl rcc_set_ahb1_enable
-    bl sub_8000810
+    bl CRC_ResetDR
     mov r1, r6
     mov r0, r5
-    bl sub_8000828
+    bl CRC_CalcBlockCRC
     and r1, r4, #3
     add.w r0, r5, r6, lsl #2
     bl sub_8003000
