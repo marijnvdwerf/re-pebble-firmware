@@ -1,9 +1,3 @@
-.syntax unified
-.cpu cortex-m3
-.text
-.thumb
-
-.include "rom.s"
 
 .equ TIM3_BASE,     0x40000400
 .equ RTC_BASE,      0x40002800
@@ -32,5 +26,3 @@
 .equ _20000044,     0x20000044
 .equ _20000020,     0x20000020
 .equ _20010044,     0x20010044
-.equ gpio_cfg,      0x20000004
- 
