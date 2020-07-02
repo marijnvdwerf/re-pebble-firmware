@@ -2446,7 +2446,7 @@ loc_8002B5C:
     bl sub_800097C
     mov.w r0, #0x1000
     movs r1, #1
-    bl sub_8000850
+    bl DBGMCU_APB1PeriphConfig
     bl sub_80009B0
     bl sub_80009A0
     movs r0, #0

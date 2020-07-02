@@ -5,7 +5,7 @@ set(mySrcs
         string.c
         rom.s
         00_crc.c
-        01_dbg.s
+        stm32f2xx_dbgmcu.c
         02_flash.s
         03_iwdg.s
         04_pwr.s
