@@ -4,38 +4,6 @@
 .syntax unified
 .section .text.pebble
 
-    @ 0x800192C
-    .global putchar
-    .thumb_func
-putchar:
-    push {r4, lr}
-    mov r4, r0
-
-    @ 0x8001930
-loc_8001930:
-    ldr r0, [pc, #0x20]
-    movs r1, #0x40
-    bl uart_srtest
-    cmp r0, #0
-    beq.n loc_8001930
-    ldr r0, [pc, #0x14]
-    mov r1, r4
-    bl uart_putdr
-
-    @ 0x8001944
-loc_8001944:
-    ldr r0, [pc, #0xc]
-    movs r1, #0x40
-    bl uart_srtest
-    cmp r0, #0
-    beq.n loc_8001944
-    pop {r4, pc}
-    .align 2
-
-    @ 0x8001954
-result:
-    .4byte USART3_BASE
-
     @ 0x8001958
     .global spi2_write
     .thumb_func

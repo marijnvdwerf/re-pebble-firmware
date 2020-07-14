@@ -20,6 +20,7 @@ set(mySrcs
         13_usart.s
         14_ctrings.s
         15_core_cm3.s
+        16_pebble.c
         16_pebble.s
         17_strings.s
         18_pebble.s
