@@ -25,17 +25,17 @@ loc_8001234:
     bx lr
 
     @ 0x8001238
-    .global uart_putdr
+    .global USART_SendData
     .thumb_func
-uart_putdr:
+USART_SendData:
     ubfx r1, r1, #0, #9
     strh r1, [r0, #4]
     bx lr
 
     @ 0x8001240
-    .global uart_srtest
+    .global USART_GetFlagStatus
     .thumb_func
-uart_srtest:
+USART_GetFlagStatus:
     ldrh r3, [r0]
     tst r1, r3
     ite eq

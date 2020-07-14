@@ -24,7 +24,7 @@ sub_8003000:
     bls.n loc_8003018
     lsrs r6, r1, #2
     mov r1, r6
-    bl sub_8000828
+    bl CRC_CalcBlockCRC
     lsls r6, r6, #2
     add r5, r6
     subs r4, r4, r6
@@ -32,7 +32,7 @@ sub_8003000:
     @ 0x8003018
 loc_8003018:
     cbnz R4, loc_8003020
-    bl sub_8000844
+    bl CRC_GetCRC
     pop {r4, r5, r6, pc}
 
     @ 0x8003020
@@ -47,7 +47,7 @@ loc_8003024:
     cmp r3, r4
     orr.w r0, r2, r0, lsl #8
     bne.n loc_8003024
-    bl sub_800081C
+    bl CRC_CalcCRC
     pop {r4, r5, r6, pc}
 
     @ 0x8003036

@@ -4,60 +4,6 @@
 .syntax unified
 .section .text.pebble
 
-    @ 0x800192C
-    .global putchar
-    .thumb_func
-putchar:
-    push {r4, lr}
-    mov r4, r0
-
-    @ 0x8001930
-loc_8001930:
-    ldr r0, [pc, #0x20]
-    movs r1, #0x40
-    bl uart_srtest
-    cmp r0, #0
-    beq.n loc_8001930
-    ldr r0, [pc, #0x14]
-    mov r1, r4
-    bl uart_putdr
-
-    @ 0x8001944
-loc_8001944:
-    ldr r0, [pc, #0xc]
-    movs r1, #0x40
-    bl uart_srtest
-    cmp r0, #0
-    beq.n loc_8001944
-    pop {r4, pc}
-    .align 2
-
-    @ 0x8001954
-result:
-    .4byte USART3_BASE
-
-    @ 0x8001958
-    .global spi2_write
-    .thumb_func
-spi2_write:
-    mov r1, r0
-    push {r3, lr}
-    ldr r0, [pc, #0x10]
-    bl spi_write_dr
-
-    @ 0x8001962
-loc_8001962:
-    ldr r0, [pc, #0xc]
-    movs r1, #2
-    bl spi_get_sr_mask
-    cmp r0, #0
-    beq.n loc_8001962
-    pop {r3, pc}
-
-    @ 0x8001970
-spi:
-    .4byte SPI2_BASE
-
     @ 0x8001974
     .thumb_func
 is_newos:
@@ -903,18 +849,18 @@ spi1_write_read:
 loc_8001F90:
     ldr r0, [pc, #0x28]
     movs r1, #2
-    bl spi_get_sr_mask
+    bl SPI_I2S_GetFlagStatus
     cmp r0, #0
     beq.n loc_8001F90
     ldr r0, [pc, #0x1c]
     mov r1, r4
-    bl spi_write_dr
+    bl SPI_I2S_SendData
 
     @ 0x8001FA4
 loc_8001FA4:
     ldr r0, [pc, #0x14]
     movs r1, #1
-    bl spi_get_sr_mask
+    bl SPI_I2S_GetFlagStatus
     cmp r0, #0
     beq.n loc_8001FA4
     ldr r0, [pc, #8]
@@ -972,7 +918,7 @@ loc_8002018:
     bl rcc_set_ahb1_enable
     add.w sb, sb, #0xc
     mov sl, sp
-    bl sub_8000810
+    bl CRC_ResetDR
     sub sp, #0x80
     mov r6, sp
     mov r5, r4
@@ -988,7 +934,7 @@ loc_800203A:
     bl sub_80031E2
     mov r0, r6
     movs r1, #0x20
-    bl sub_8000828
+    bl CRC_CalcBlockCRC
     subs r5, #0x80
     add.w r8, r8, #0x80
     b.n loc_800203A
@@ -1210,10 +1156,10 @@ loc_80021F4:
     movs r1, #1
     lsrs r6, r4, #2
     bl rcc_set_ahb1_enable
-    bl sub_8000810
+    bl CRC_ResetDR
     mov r1, r6
     mov r0, r5
-    bl sub_8000828
+    bl CRC_CalcBlockCRC
     and r1, r4, #3
     add.w r0, r5, r6, lsl #2
     bl sub_8003000
@@ -2446,7 +2392,7 @@ loc_8002B5C:
     bl sub_800097C
     mov.w r0, #0x1000
     movs r1, #1
-    bl sub_8000850
+    bl DBGMCU_APB1PeriphConfig
     bl sub_80009B0
     bl sub_80009A0
     movs r0, #0

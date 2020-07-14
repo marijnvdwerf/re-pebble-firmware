@@ -4,8 +4,8 @@ set(mySrcs
         startup.s
         string.c
         rom.s
-        00_crc.s
-        01_dbg.s
+        00_crc.c
+        stm32f2xx_dbgmcu.c
         02_flash.s
         03_iwdg.s
         04_pwr.s
@@ -20,6 +20,7 @@ set(mySrcs
         13_usart.s
         14_ctrings.s
         15_core_cm3.s
+        16_pebble.c
         16_pebble.s
         17_strings.s
         18_pebble.s
@@ -38,6 +39,7 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -T ${LINKER_SCRIPT} -nostd
 
 set(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS}  -I${CMAKE_SOURCE_DIR}  -mcpu=cortex-m3 -mthumb -Os")
 add_executable(${TARGET_NAME}  ${mySrcs})
+target_link_libraries(${TARGET_NAME} stm32f2xx)
 
 get_target_property(ELF ${TARGET_NAME} RUNTIME_OUTPUT_NAME)
 add_custom_command(TARGET ${TARGET_NAME} POST_BUILD

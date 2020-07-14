@@ -8,23 +8,55 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+        - url: "https://launchpad.net/gcc-arm-embedded/4.9/4.9-2015-q3-update/+download/gcc-arm-none-eabi-4_9-2015q3-20150921-linux.tar.bz2"
+          dir: gcc-arm-none-eabi-4_9-2015q3
+          cflags: "--specs=nosys.specs"
+          linker_flags: -DCMAKE_EXE_LINKER_FLAGS="-Wl,-nostdlib"
+        - url: "https://launchpad.net/gcc-arm-embedded/4.8/4.8-2014-q3-update/+download/gcc-arm-none-eabi-4_8-2014q3-20140805-linux.tar.bz2"
+          dir: gcc-arm-none-eabi-4_8-2014q3
+          cflags: "--specs=nosys.specs"
+          linker_flags: -DCMAKE_EXE_LINKER_FLAGS="-Wl,-nostdlib"
+        - url: "https://launchpad.net/gcc-arm-embedded/4.7/4.7-2014-q2-update/+download/gcc-arm-none-eabi-4_7-2014q2-20140408-linux.tar.bz2"
+          dir: gcc-arm-none-eabi-4_7-2014q2
+          linker_flags: -DCMAKE_TRY_COMPILE_TARGET_TYPE=STATIC_LIBRARY
+        - url: "https://launchpad.net/gcc-arm-embedded/4.6/4.6-2012-q4-update/+download/gcc-arm-none-eabi-4_6-2012q4-20121016.tar.bz2"
+          dir: gcc-arm-none-eabi-4_6-2012q4
+          linker_flags: -DCMAKE_TRY_COMPILE_TARGET_TYPE=STATIC_LIBRARY
+        - url: "https://developer.rebble.io/s3.amazonaws.com/assets.getpebble.com/pebble-tool/pebble-sdk-4.5-linux64.tar.bz2"
+          dir: pebble-sdk-4.5-linux64/arm-cs-tools
+
 
     steps:
     - uses: actions/checkout@v2
 
       # These should probably be moved to a Dockerfile
     - name: Download Pebble SDK
-      run: wget -O pebble-sdk.tar.bz2 https://developer.rebble.io/s3.amazonaws.com/assets.getpebble.com/pebble-tool/pebble-sdk-4.5-linux64.tar.bz2
+      run: wget -O pebble-sdk.tar.bz2 ${{ matrix.url }}
     - name: Extract Pebble SDK
       run: tar -jxf pebble-sdk.tar.bz2
+    - run: ls
+    - run: ls ${{ matrix.dir }}
+    - name: gcc -dumpspecs
+      run: ${{ matrix.dir }}/bin/arm-none-eabi-gcc -dumpspecs
+    - name: gcc - v
+      run: ${{ matrix.dir }}/bin/arm-none-eabi-gcc -v
 
     - name: Create Build Environment
       run: mkdir ${{github.workspace}}/build
     - name: Configure CMake
       working-directory: ${{github.workspace}}/build
-      run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_C_COMPILER=$GITHUB_WORKSPACE/pebble-sdk-4.5-linux64/arm-cs-tools/bin/arm-none-eabi-gcc -DCMAKE_SYSTEM_NAME=Generic -DCMAKE_SYSTEM_PROCESSOR=arm
+      run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_C_COMPILER=$GITHUB_WORKSPACE/${{ matrix.dir }}/bin/arm-none-eabi-gcc -DCMAKE_SYSTEM_NAME=Generic -DCMAKE_SYSTEM_PROCESSOR=arm ${{ matrix.linker_flags }}
+      env:
+        CFLAGS: ${{ matrix.cflags }}
+    - run: cat ${{github.workspace}}/build/CMakeFiles/CMakeOutput.log
+      if: ${{ always() }}
+    - run: cat ${{github.workspace}}/build/CMakeFiles/CMakeError.log
+      if: ${{ failure() }}
     - name: Build
       working-directory: ${{github.workspace}}/build
       run: make
