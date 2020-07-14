@@ -39,6 +39,7 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -T ${LINKER_SCRIPT} -nostd
 
 set(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS}  -I${CMAKE_SOURCE_DIR}  -mcpu=cortex-m3 -mthumb -Os")
 add_executable(${TARGET_NAME}  ${mySrcs})
+target_link_libraries(${TARGET_NAME} stm32f2xx)
 
 get_target_property(ELF ${TARGET_NAME} RUNTIME_OUTPUT_NAME)
 add_custom_command(TARGET ${TARGET_NAME} POST_BUILD

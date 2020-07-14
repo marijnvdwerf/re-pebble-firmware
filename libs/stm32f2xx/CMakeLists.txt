@@ -1,0 +1,3 @@
+add_library(stm32f2xx INTERFACE)
+target_include_directories(stm32f2xx INTERFACE inc)
+target_include_directories(stm32f2xx INTERFACE include)
