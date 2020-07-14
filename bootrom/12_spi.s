@@ -67,16 +67,16 @@ spi_read_dr:
     bx lr
 
     @ 0x8001210
-    .global spi_write_dr
+    .global SPI_I2S_SendData
     .thumb_func
-spi_write_dr:
+SPI_I2S_SendData:
     strh r1, [r0, #0xc]
     bx lr
 
     @ 0x8001214
-    .global spi_get_sr_mask
+    .global SPI_I2S_GetFlagStatus
     .thumb_func
-spi_get_sr_mask:
+SPI_I2S_GetFlagStatus:
     ldrh r3, [r0, #8]
     tst r1, r3
     ite eq
